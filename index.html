@@ -366,7 +366,7 @@ h2{font-size:clamp(1.5rem,3.5vw,2.4rem);font-weight:600}
         <div class="dok-section">
           <div class="dok-section-title">🎥 Video Penyembelihan Kambing</div>
           <div class="dok-video-wrap dok-video-slot" style="aspect-ratio:16/9;position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;border-radius:var(--r)">
-            <!-- <iframe src="https://www.youtube.com/embed/12rVu_XXNK4" allowfullscreen></iframe> -->
+            <!-- <iframe src="https://www.youtube.com/embed/VIDEO_ID" allowfullscreen></iframe> -->
             <div class="play-btn">▶</div>
             <span style="color:rgba(255,255,255,.55);font-size:12px">Slot embed video penyembelihan kambing</span>
           </div>
@@ -377,20 +377,17 @@ h2{font-size:clamp(1.5rem,3.5vw,2.4rem);font-weight:600}
       <div class="dok-panel" id="dok-sedekah">
         <div class="dok-section">
           <div class="dok-section-title">⚖️ Foto Timbangan Daging Kolektif</div>
-          <div class="dok-media-grid">
-            <div class="dok-slot"><div class="dok-slot-icon">📷</div><div class="dok-slot-label">Foto Timbangan</div><div class="dok-slot-sub">Berat total daging</div></div>
-            <div class="dok-slot"><div class="dok-slot-icon">📷</div><div class="dok-slot-label">Foto Pengemasan</div><div class="dok-slot-sub">Pembungkusan daging</div></div>
-            <div class="dok-slot"><div class="dok-slot-icon">📷</div><div class="dok-slot-label">Foto Distribusi</div><div class="dok-slot-sub">Penyerahan ke mustahik</div></div>
-          </div>
+          <div class="dok-media-grid" id="dok-sd-timb"></div>
+        </div>
+        <div class="dok-section">
+          <div class="dok-section-title">🤝 Foto Distribusi ke Mustahik</div>
+          <div class="dok-media-grid" id="dok-sd-dist"></div>
         </div>
         <div class="dok-section">
           <div class="dok-section-title">🎥 Video Rekapitulasi Ucapan Terima Kasih</div>
-          <div class="dok-video-wrap dok-video-slot" style="aspect-ratio:16/9;position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;border-radius:var(--r)">
-            <div class="play-btn">▶</div>
-            <span style="color:rgba(255,255,255,.55);font-size:12px">Slot video ucapan terima kasih mustahik</span>
-          </div>
+          <div id="dok-sd-video"></div>
         </div>
-        <div style="background:var(--gold-p);border:1px solid rgba(184,137,42,.25);border-radius:var(--r);padding:16px;display:flex;gap:12px">
+        <div style="background:var(--gold-p);border:1px solid rgba(184,137,42,.25);border-radius:var(--r);padding:16px;display:flex;gap:12px;margin-top:16px">
           <div style="font-size:28px">📜</div>
           <div>
             <div style="font-family:var(--ff-d);font-size:1rem;font-weight:700;color:var(--gold);margin-bottom:4px">Laporan Distribusi Sedekah Daging</div>
@@ -420,21 +417,112 @@ h2{font-size:clamp(1.5rem,3.5vw,2.4rem);font-weight:600}
 </footer>
 
 <script>
+/* ╔══════════════════════════════════════════════════════════╗
+   ║  📌 PANDUAN ISI FOTO & VIDEO                            ║
+   ║  1. Upload foto ke https://imgur.com/upload             ║
+   ║  2. Klik foto yang sudah diupload                       ║
+   ║  3. Klik kanan pada foto → "Copy image address"         ║
+   ║     Contoh hasil: https://i.imgur.com/AbCd123.jpg       ║
+   ║  4. Paste URL tersebut di antara tanda kutip '' di bawah║
+   ║  5. Simpan file & refresh browser                       ║
+   ╚══════════════════════════════════════════════════════════╝ */
+
+/* ═══════════════════════════════════════════════════════════
+   📷 FOTO & VIDEO — ISI DI SINI
+═══════════════════════════════════════════════════════════ */
+const MEDIA = {
+  sapi: [
+    // --- Kelompok 1 ---
+    { foto_hewan: '',           // URL foto sapi kelompok 1
+      foto_dist:  ['','',''],   // URL foto distribusi ke mustahik (maks 3)
+      video:      '' },         // URL YouTube: https://youtu.be/XXXXX
+
+    // --- Kelompok 2 ---
+    { foto_hewan: '',
+      foto_dist:  ['','',''],
+      video:      '' },
+
+    // --- Kelompok 3 ---
+    { foto_hewan: '',
+      foto_dist:  ['','',''],
+      video:      '' },
+
+    // --- Kelompok 4 ---
+    { foto_hewan: '',
+      foto_dist:  ['','',''],
+      video:      '' },
+
+    // --- Kelompok 5 ---
+    { foto_hewan: '',
+      foto_dist:  ['','',''],
+      video:      '' },
+
+    // --- Kelompok 6 ---
+    { foto_hewan: '',
+      foto_dist:  ['','',''],
+      video:      '' },
+
+    // --- Kelompok 7 ---
+    { foto_hewan: '',
+      foto_dist:  ['','',''],
+      video:      '' },
+
+    // --- Kelompok 8 ---
+    { foto_hewan: '',
+      foto_dist:  ['','',''],
+      video:      '' },
+
+    // --- Kelompok 9 ---
+    { foto_hewan: '',
+      foto_dist:  ['','',''],
+      video:      '' },
+
+    // --- Kelompok 10 ---
+    { foto_hewan: '',
+      foto_dist:  ['','',''],
+      video:      '' },
+
+    // --- Kelompok 11 ---
+    { foto_hewan: '',
+      foto_dist:  ['','',''],
+      video:      '' },
+  ],
+
+  kambing: [
+    { id:'K-001', foto: '' },   // Bagus Aris Sugiyanto Ahmad
+    { id:'K-002', foto: '' },   // H. Wahyudin Beta
+    { id:'K-003', foto: '' },   // Juanda
+    { id:'K-004', foto: '' },   // Khalid Abdul Rahman
+    { id:'K-005', foto: '' },   // Bapak Roni Tang
+    { id:'K-006', foto: '' },   // Bapak Awaluddin Bambang
+    { id:'K-007', foto: '' },   // Muh. Daffa Adz-Dzaki
+    { id:'K-008', foto: '' },   // Abd. Rakhmat Muzakkir
+    { id:'K-009', foto: '' },   // Abdul Latif Sekeluarga
+    { id:'K-010', foto: '' },   // Naira Mayumi Khalilah Narwin binti Narwin
+  ],
+
+  sedekah: {
+    foto_timbangan: ['','',''],   // URL foto timbangan daging
+    foto_dist:      ['','',''],   // URL foto distribusi ke mustahik
+    video:          '',           // URL YouTube video ucapan terima kasih
+  }
+};
+
 /* ═══════════════════════════════════
-   DATA
+   DATA SHOHIBUL QURBAN
 ═══════════════════════════════════ */
 const SAPI = [
   {id:'S-001',k:1,a:['Andi Walitakhri / Maryam','Muhammad Aiman Syawal','Arisman Semma','Kamaruddin','Andi Djamadde Dg. Massikki','Andi Cimpau Tenri Bunga','Muliati'],tgl:'10 Dzulhijjah 1447 H'},
   {id:'S-002',k:2,a:['Nur Salma binti Sartono Limonu','Hasan Hamido','dr. Arifian Wijaya Lana Putra','Andi Syamsuriadi bin Andi Sultan','Hj. Djawiah','Nasrun','A. Muhammad Risyad Ikramullah bin Sultan'],tgl:'10 Dzulhijjah 1447 H'},
-  {id:'S-003',k:3,a:['Ahmad Ramadhani Amir','Hj. Nursiah Abdullah','Susnawati','Yusna','Fadil Ihsan','Saiful Akbar','Idul Akbar'],tgl:'10 Dzulhijjah 1447 H'},
-  {id:'S-004',k:4,a:['Khalid Abdul Rahman'],tgl:'10 Dzulhijjah 1447 H'},
-  {id:'S-005',k:5,a:['Aimi Farah Rajiyyah','St. Ramlah binti Duppai','Muhammad Asfar','Fitriah','Nawaitul Nur','Asma','Kaco'],tgl:'10 Dzulhijjah 1447 H'},
-  {id:'S-006',k:6,a:['Rauly Rahmadhani','Hj. Hilma','Baharuddin Saenong','Hj. Aminah','Imran Sandi','Wahidah','Firmansyah'],tgl:'10 Dzulhijjah 1447 H'},
-  {id:'S-007',k:7,a:['H. Abidin','Saenal Bakri','Kel. Baso Misbahuddin','Nurul Reski Amalia','Orlando Aufar Pattiselano','Alya Ghassani Pattiselano','Sari Bunga'],tgl:'10 Dzulhijjah 1447 H'},
-  {id:'S-008',k:8,a:['Muhardi bin Sumang','M. Irwan Tasrim','drg. Nitri Juni Rahmawati','Sudarsono','Nur Hudaya','Jumaing','Khaidir'],tgl:'10 Dzulhijjah 1447 H'},
-  {id:'S-009',k:9,a:['Keluarga Muhammad Fauzan Basri','Keluarga Khudri Syam','Bapak Ferry Sumanto bin Suparman','Bapak Ismail Muna','Hj. Mulyati Ranreng','Ibu Amaliyah','Ustadz Muharram'],tgl:'11 Dzulhijjah 1447 H'},
-  {id:'S-010',k:10,a:['Ibu Risky Ayu Miskad','Muhammad Arif Alfarisi Akmal','Bapak Asri Ahmad Fatih Ganeca','Ustadzah Megawati','Keluarga Galuh Rezky Junianto','Keluarga H. Alimuddin Wellang','Kel. Ahmad Mawardi'],tgl:'11 Dzulhijjah 1447 H'},
-  {id:'S-011',k:11,a:['Masram','Keluarga Ibu Munira','Keluarga Umi Kalsum','Keluarga Bapak Nursamsu','Keluarga Muhammad Harun Al Rasyid','Andi Muhammad Al Amin An Najazir','Erwin Mukhtar Sekeluarga'],tgl:'11 Dzulhijjah 1447 H'},
+  {id:'S-003',k:3,a:['Ahmad Ramadhani Amir','Hj. Nursiah Abdullah','Susnawati','Yusna','Fadil Ihsan','Saiful Akbar','Idul Akbar'],tgl:'11 Dzulhijjah 1447 H'},
+  {id:'S-004',k:4,a:['Khalid Abdul Rahman'],tgl:'11 Dzulhijjah 1447 H'},
+  {id:'S-005',k:5,a:['Aimi Farah Rajiyyah','St. Ramlah binti Duppai','Muhammad Asfar','Fitriah','Nawaitul Nur','Asma','Kaco'],tgl:'11 Dzulhijjah 1447 H'},
+  {id:'S-006',k:6,a:['Rauly Rahmadhani','Hj. Hilma','Baharuddin Saenong','Hj. Aminah','Imran Sandi','Wahidah','Firmansyah'],tgl:'11 Dzulhijjah 1447 H'},
+  {id:'S-007',k:7,a:['H. Abidin','Saenal Bakri','Kel. Baso Misbahuddin','Nurul Reski Amalia','Orlando Aufar Pattiselano','Alya Ghassani Pattiselano','Sari Bunga'],tgl:'12 Dzulhijjah 1447 H'},
+  {id:'S-008',k:8,a:['Muhardi bin Sumang','M. Irwan Tasrim','drg. Nitri Juni Rahmawati','Sudarsono','Nur Hudaya','Jumaing','Khaidir'],tgl:'12 Dzulhijjah 1447 H'},
+  {id:'S-009',k:9,a:['Keluarga Muhammad Fauzan Basri','Keluarga Khudri Syam','Bapak Ferry Sumanto bin Suparman','Bapak Ismail Muna','Hj. Mulyati Ranreng','Ibu Amaliyah','Ustadz Muharram'],tgl:'12 Dzulhijjah 1447 H'},
+  {id:'S-010',k:10,a:['Ibu Risky Ayu Miskad','Muhammad Arif Alfarisi Akmal','Bapak Asri Ahmad Fatih Ganeca','Ustadzah Megawati','Keluarga Galuh Rezky Junianto','Keluarga H. Alimuddin Wellang','Kel. Ahmad Mawardi'],tgl:'13 Dzulhijjah 1447 H'},
+  {id:'S-011',k:11,a:['Masram','Keluarga Ibu Munira','Keluarga Umi Kalsum','Keluarga Bapak Nursamsu','Keluarga Muhammad Harun Al Rasyid','Andi Muhammad Al Amin An Najazir','Erwin Mukhtar Sekeluarga'],tgl:'13 Dzulhijjah 1447 H'},
 ];
 
 const KAMBING = [
@@ -442,18 +530,16 @@ const KAMBING = [
   {id:'K-002',n:'H. Wahyudin Beta',tgl:'10 Dzulhijjah 1447 H'},
   {id:'K-003',n:'Juanda',tgl:'10 Dzulhijjah 1447 H'},
   {id:'K-004',n:'Khalid Abdul Rahman',tgl:'10 Dzulhijjah 1447 H'},
-  {id:'K-005',n:'Bapak Roni Tang',tgl:'10 Dzulhijjah 1447 H'},
-  {id:'K-006',n:'Bapak Awaluddin Bambang',tgl:'10 Dzulhijjah 1447 H'},
+  {id:'K-005',n:'Bapak Roni Tang',tgl:'11 Dzulhijjah 1447 H'},
+  {id:'K-006',n:'Bapak Awaluddin Bambang',tgl:'11 Dzulhijjah 1447 H'},
   {id:'K-007',n:'Muh. Daffa Adz-Dzaki',tgl:'11 Dzulhijjah 1447 H'},
-  {id:'K-008',n:'Abd. Rakhmat Muzakkir',tgl:'11 Dzulhijjah 1447 H'},
-  {id:'K-009',n:'Abdul Latif Sekeluarga',tgl:'11 Dzulhijjah 1447 H'},
-  {id:'K-010',n:'Naira Mayumi Khalilah Narwin binti Narwin',tgl:'11 Dzulhijjah 1447 H'},
+  {id:'K-008',n:'Abd. Rakhmat Muzakkir',tgl:'12 Dzulhijjah 1447 H'},
+  {id:'K-009',n:'Abdul Latif Sekeluarga',tgl:'12 Dzulhijjah 1447 H'},
+  {id:'K-010',n:'Naira Mayumi Khalilah Narwin binti Narwin',tgl:'13 Dzulhijjah 1447 H'},
 ];
 
-// Sedekah Daging: [nama, kelas, nominal]
 const SD_RAW = [
 ['HAFSAH HUMAIRA RACHMAT','I Khalifah Usman',100000],
-['Faqih Ahnaf Khalifah','IV Sultan Alauddin',50000],
 ['Ustadzah Rahmawanti','III Salahuddin Al Ayyubi',100000],
 ['Pak Romi R.Lebang','II Al-Manshur',50000],
 ['MUHAMMAD SHOLEH ALFARIZQI','I Khalifah Ali',50000],
@@ -598,8 +684,8 @@ const SD_RAW = [
 ['RAJA GIBRAN IRFANA','I Khalifah Usman',100000],
 ['Tanpa Nama','I Khalifah Usman',100000],
 ['ZIVANA LAFIFAH ZUHDI','III Nuruddin Zanki',50000],
-['SITI MUTIA ASSA\'ADAH','V Nyi Ageng Serang',50000],
-['ALMEERA QURRATA A\'YUN','II Abdul Hamid II',50000],
+["SITI MUTIA ASSA'ADAH",'V Nyi Ageng Serang',50000],
+["ALMEERA QURRATA A'YUN",'II Abdul Hamid II',50000],
 ['AZMI FADZILA RAMADHANI','II Abdul Hamid II',50000],
 ['SABIL HIDAYAT','II Abdul Hamid II',50000],
 ['MUHAMMAD AFIF HAFSYA','',50000],
@@ -612,7 +698,7 @@ const SD_RAW = [
 ['Tanpa Nama','I Khalifah Usman',50000],
 ['ARMITA MANIKA/ALVIRA RAFANIA THAUFIQ','I Khalifah Usman',100000],
 ['FAIZAN HAFIZ SINAGA','I Khalifah Usman',50000],
-['A. Shakila Nada Mecca','I Khalifah Usman',50000],
+['A. Shakila Nada Mecca','Kelas 1 Khalifah Usman',50000],
 ['AHSAN DAN IHSAN','IV Sultan Alauddin',100000],
 ['MUH. FATHURRAHMAN','V Teungku Chik Di Tiro',100000],
 ['Muhammad Hafiy Al Fayyadh','V Pangeran Hidayatullah',50000],
@@ -628,6 +714,7 @@ const SD_RAW = [
 ['HABIBIE','TKIT AR-RAHMAH',50000],
 ['IZZAN','TKIT AR-RAHMAH',50000],
 ['CENNING','TKIT AR-RAHMAH',50000],
+['SANIYA AZZAHRA','TKIT AR-RAHMAH',150000],
 ['RIANI MUTIA AZZAHRA','IV Sultanah Nahrasiyah',50000],
 ['MUHAMMAD ADITYA NURHADI','IV Sultanah Nahrasiyah',50000],
 ['ALFATIH MUHAMMAD FAQIH','IV Sultanah Nahrasiyah',100000],
@@ -662,31 +749,68 @@ const SD_RAW = [
 ['ANINDYA BUDIATI RAHMAN','V Nyi Ageng Serang',50000],
 ['MUHAMMAD OZZIE SAFRAN RAMADHAN','III Thariq bin Ziyad',50000],
 ['MUHAMMAD DZUHAIRI RAMADIANSYAH','I Khalifah Usman',50000],
-];
+['MUHAMMAD FAQIH ABQARY PUTRA SYAHRIL','III Thariq bin Ziyad',100000],
+['MUHAMMAD NIZAM SHAKEEL ANAM','I Khalifah Umar',150000],
+['NAMIRA PUTRI LIDEMAR','IV Sultan Baabullah',50000],
+['KHALISAH AULIA BREZZIANA','',200000],
+['KELAS TAHFIDZ','SMPIT',400000],
+['KELAS ALKINDI','SMPIT',200000],
+['KELAS IBNU KHALDUN','SMPIT',500000],
+['KELAS ALFARABI','SMPIT',100000],
+['ASLAM','SMPIT',300000],
+]
+
+/* ═══════════════════════════════════
+   HELPER: render foto slot
+═══════════════════════════════════ */
+function fotoSlot(url, label, sub) {
+  if (url && url.trim()) {
+    return `<div class="dok-slot" style="padding:0;border-style:solid;border-color:var(--bdr)">
+      <img src="${url.trim()}" alt="${label}" style="width:100%;height:100%;object-fit:cover;border-radius:var(--r)">
+    </div>`;
+  }
+  return `<div class="dok-slot">
+    <div class="dok-slot-icon">📷</div>
+    <div class="dok-slot-label">${label}</div>
+    <div class="dok-slot-sub">${sub||'Belum ada foto'}</div>
+  </div>`;
+}
+
+function videoSlot(url, label) {
+  // Convert youtu.be or youtube.com/watch?v= to embed URL
+  let embedUrl = '';
+  if (url && url.trim()) {
+    const m = url.match(/(?:youtu\.be\/|youtube\.com\/watch\?v=)([\w-]+)/);
+    if (m) embedUrl = 'https://www.youtube.com/embed/' + m[1];
+    else embedUrl = url;
+  }
+  if (embedUrl) {
+    return `<div style="position:relative;aspect-ratio:16/9;border-radius:var(--r);overflow:hidden;margin-bottom:0">
+      <iframe src="${embedUrl}" allowfullscreen style="position:absolute;inset:0;width:100%;height:100%;border:none"></iframe>
+    </div>`;
+  }
+  return `<div class="dok-video-slot" style="aspect-ratio:16/9;border-radius:var(--r);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px">
+    <div class="play-btn">▶</div>
+    <span style="color:rgba(255,255,255,.55);font-size:12px">${label||'Slot video'}</span>
+  </div>`;
+}
 
 /* ═══════════════════════════════════
    RENDER SAPI CARDS
 ═══════════════════════════════════ */
 function renderSapi() {
-  const grid = document.getElementById('grid-sapi');
-  grid.innerHTML = SAPI.map(s => `
+  document.getElementById('grid-sapi').innerHTML = SAPI.map(s => `
     <div class="sapi-card" data-search="${s.a.join(' ').toLowerCase()}">
       <div class="sapi-card-head">
-        <div class="sapi-card-head-left">
-          <div class="sapi-no">🐄 Sapi &nbsp;·&nbsp; ${s.id}</div>
-          <div class="sapi-title">Kelompok ${s.k}</div>
-        </div>
+        <div><div class="sapi-no">🐄 Sapi &nbsp;·&nbsp; ${s.id}</div>
+        <div class="sapi-title">Kelompok ${s.k}</div></div>
         <div class="sapi-badge">✓ Selesai</div>
       </div>
       <div class="sapi-card-date">📅 ${s.tgl}</div>
       <div class="sapi-members">
         ${s.a.map((n,i)=>`<div class="sapi-member"><div class="sapi-num">${i+1}</div><div class="sapi-name">${n}</div></div>`).join('')}
       </div>
-      <div class="sapi-progress">
-        <div class="p-step done"></div>
-        <div class="p-step done"></div>
-        <div class="p-step done"></div>
-      </div>
+      <div class="sapi-progress"><div class="p-step done"></div><div class="p-step done"></div><div class="p-step done"></div></div>
     </div>`).join('');
 }
 
@@ -694,8 +818,7 @@ function renderSapi() {
    RENDER KAMBING CARDS
 ═══════════════════════════════════ */
 function renderKambing() {
-  const grid = document.getElementById('grid-kambing');
-  grid.innerHTML = KAMBING.map(k => `
+  document.getElementById('grid-kambing').innerHTML = KAMBING.map(k => `
     <div class="kambing-card" data-search="${k.n.toLowerCase()}">
       <div class="kambing-no">🐐 Kambing &nbsp;·&nbsp; ${k.id}</div>
       <div class="kambing-name">${k.n}</div>
@@ -705,121 +828,99 @@ function renderKambing() {
 }
 
 /* ═══════════════════════════════════
-   RENDER SEDEKAH DAGING TABLE
+   RENDER SEDEKAH DAGING
 ═══════════════════════════════════ */
 function initSedekah() {
   const total = SD_RAW.reduce((s,r)=>s+r[2],0);
   const count = SD_RAW.length;
-  const avg   = Math.round(total/count);
-
-  // Stats
-  document.getElementById('sdCount').textContent  = count;
-  document.getElementById('sdTotal').textContent  = 'Total Rp '+fmt(total);
+  document.getElementById('sdCount').textContent   = count;
+  document.getElementById('sdTotal').textContent   = 'Total Rp '+fmt(total);
   document.getElementById('sdTabCount').textContent = count;
-  document.getElementById('sdS1').textContent     = count;
-  document.getElementById('sdS2').textContent     = 'Rp '+fmt(total);
-  document.getElementById('sdS3').textContent     = 'Rp '+fmt(avg);
-
-  // Kelas options
+  document.getElementById('sdS1').textContent      = count;
+  document.getElementById('sdS2').textContent      = 'Rp '+fmt(total);
+  document.getElementById('sdS3').textContent      = 'Rp '+fmt(Math.round(total/count));
   const kelasSet = new Set(SD_RAW.map(r=>r[1].trim()).filter(Boolean).sort());
   const sel = document.getElementById('sdKelasFilter');
-  kelasSet.forEach(k => {
-    const o = document.createElement('option');
-    o.value = k; o.textContent = k;
-    sel.appendChild(o);
-  });
-
-  renderSedekahTable(SD_RAW);
+  kelasSet.forEach(k=>{ const o=document.createElement('option'); o.value=k; o.textContent=k; sel.appendChild(o); });
+  renderSdTable(SD_RAW);
 }
 
-function renderSedekahTable(data) {
-  const tbody = document.getElementById('sdTableBody');
-  tbody.innerHTML = data.map((r,i)=>`
-    <tr>
-      <td>${i+1}</td>
-      <td class="td-nama">${r[0]}</td>
-      <td class="td-kelas">${r[1]||'—'}</td>
-      <td class="td-nominal">Rp ${fmt(r[2])}</td>
-    </tr>`).join('');
-  document.getElementById('sdNoResult').style.display = data.length ? 'none' : 'block';
+function renderSdTable(data) {
+  document.getElementById('sdTableBody').innerHTML = data.map((r,i)=>`
+    <tr><td>${i+1}</td><td class="td-nama">${r[0]}</td><td class="td-kelas">${r[1]||'—'}</td><td class="td-nominal">Rp ${fmt(r[2])}</td></tr>`).join('');
+  document.getElementById('sdNoResult').style.display = data.length ? 'none':'block';
 }
 
 function filterSedekah() {
   const q = document.getElementById('sdSearch').value.toLowerCase().trim();
   const k = document.getElementById('sdKelasFilter').value.trim().toLowerCase();
-  const filtered = SD_RAW.filter(r => {
-    const nameMatch = !q || r[0].toLowerCase().includes(q);
-    const kelasMatch = !k || r[1].trim().toLowerCase() === k;
-    return nameMatch && kelasMatch;
-  });
-  renderSedekahTable(filtered);
+  renderSdTable(SD_RAW.filter(r=>(!q||r[0].toLowerCase().includes(q))&&(!k||r[1].trim().toLowerCase()===k)));
 }
-
-function fmt(n) {
-  return n.toLocaleString('id-ID');
-}
+function fmt(n){return n.toLocaleString('id-ID')}
 
 /* ═══════════════════════════════════
    RENDER DOKUMENTASI — SAPI
 ═══════════════════════════════════ */
 function renderDokSapi() {
-  const wrap = document.getElementById('dok-sapi-content');
-  wrap.innerHTML = SAPI.map(s => `
+  document.getElementById('dok-sapi-content').innerHTML = SAPI.map((s,i) => {
+    const m = MEDIA.sapi[i] || {};
+    const distSlots = (m.foto_dist||['','']).map((url,j)=>
+      fotoSlot(url, 'Foto Distribusi '+(j+1), 'Penyerahan ke mustahik')).join('');
+    return `
     <div class="dok-section">
       <div class="dok-section-title">🐄 Kelompok ${s.k} — ${s.id}
         <span style="font-family:var(--ff-b);font-size:12px;font-weight:400;color:var(--ink-s)">(${s.tgl})</span>
       </div>
       <div class="dok-media-grid">
-        <div class="dok-slot">
-          <div class="dok-slot-icon">📷</div>
-          <div class="dok-slot-label">Foto Hewan</div>
-          <div class="dok-slot-sub">Tampak seluruh badan</div>
-        </div>
-        <div class="dok-slot">
-          <div class="dok-slot-icon">🎥</div>
-          <div class="dok-slot-label">Video Penyembelihan</div>
-          <div class="dok-slot-sub">Dokumentasi proses</div>
-        </div>
-        <div class="dok-slot">
-          <div class="dok-slot-icon">🤝</div>
-          <div class="dok-slot-label">Foto Distribusi</div>
-          <div class="dok-slot-sub">Penyerahan ke mustahik</div>
-        </div>
+        ${fotoSlot(m.foto_hewan,'Foto Hewan','Tampak seluruh badan')}
+        ${distSlots}
       </div>
-    </div>`).join('');
+      <div style="margin-top:12px">${videoSlot(m.video,'Video penyembelihan Kelompok '+s.k)}</div>
+    </div>`;
+  }).join('');
 }
 
+/* ═══════════════════════════════════
+   RENDER DOKUMENTASI — KAMBING
+═══════════════════════════════════ */
 function renderDokKambing() {
   const grid = document.getElementById('dok-kambing-grid');
-  grid.innerHTML = KAMBING.map(k => `
-    <div class="dok-slot">
-      <div class="dok-slot-icon">🐐</div>
-      <div class="dok-slot-label">${k.id} — Foto</div>
-      <div class="dok-slot-sub">${k.n}</div>
-    </div>`).join('');
+  grid.innerHTML = KAMBING.map((k,i) => {
+    const url = (MEDIA.kambing[i]||{}).foto || '';
+    return fotoSlot(url, k.id+' · '+k.n, k.tgl);
+  }).join('');
+}
+
+/* ═══════════════════════════════════
+   RENDER DOKUMENTASI — SEDEKAH
+═══════════════════════════════════ */
+function renderDokSedekah() {
+  const m = MEDIA.sedekah;
+  const timbGrid = document.getElementById('dok-sd-timb');
+  const distGrid = document.getElementById('dok-sd-dist');
+  const vidWrap  = document.getElementById('dok-sd-video');
+  timbGrid.innerHTML = (m.foto_timbangan||['','']).map((u,i)=>fotoSlot(u,'Foto Timbangan '+(i+1),'Berat total daging')).join('');
+  distGrid.innerHTML = (m.foto_dist||['','']).map((u,i)=>fotoSlot(u,'Foto Distribusi '+(i+1),'Penyerahan ke mustahik')).join('');
+  vidWrap.innerHTML  = videoSlot(m.video,'Video ucapan terima kasih mustahik');
 }
 
 /* ═══════════════════════════════════
    TAB SWITCHING
 ═══════════════════════════════════ */
 let currentTab = 'sapi';
-
 function switchTab(tab) {
   currentTab = tab;
-  document.querySelectorAll('.tab-btn').forEach(b => b.classList.toggle('active', b.dataset.tab===tab));
-  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.toggle('active',b.dataset.tab===tab));
+  document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
   document.getElementById('panel-'+tab).classList.add('active');
-  // hide search for sedekah & dok panels (they have own filters)
   const hideSearch = tab==='sedekah'||tab==='dok';
-  document.getElementById('searchWrap').style.display = hideSearch ? 'none' : '';
-  document.getElementById('tabSearchInput').value = '';
-  if (!hideSearch) onSearch('');
+  document.getElementById('searchWrap').style.display = hideSearch?'none':'';
+  if (!hideSearch) { document.getElementById('tabSearchInput').value=''; onSearch(''); }
   document.querySelector('.tab-bar-wrap').scrollIntoView({behavior:'smooth',block:'nearest'});
 }
-
 function switchDok(id) {
-  document.querySelectorAll('.dok-tab-btn').forEach(b => b.classList.toggle('active', b.dataset.dok===id));
-  document.querySelectorAll('.dok-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.dok-tab-btn').forEach(b=>b.classList.toggle('active',b.dataset.dok===id));
+  document.querySelectorAll('.dok-panel').forEach(p=>p.classList.remove('active'));
   document.getElementById(id).classList.add('active');
 }
 
@@ -828,41 +929,33 @@ function switchDok(id) {
 ═══════════════════════════════════ */
 function onSearch(q) {
   const lq = q.toLowerCase().trim();
-  ['sapi','kambing'].forEach(tab => {
-    const grid  = document.getElementById('grid-'+tab);
-    const noRes = document.getElementById('noResult-'+tab);
-    if (!grid) return;
-    const cards = grid.querySelectorAll('[data-search]');
-    let vis = 0;
-    cards.forEach(c => {
-      const match = !lq || c.dataset.search.includes(lq);
-      c.style.display = match ? '' : 'none';
-      if (match) vis++;
+  ['sapi','kambing'].forEach(tab=>{
+    const grid=document.getElementById('grid-'+tab);
+    const noRes=document.getElementById('noResult-'+tab);
+    if(!grid)return;
+    let vis=0;
+    grid.querySelectorAll('[data-search]').forEach(c=>{
+      const match=!lq||c.dataset.search.includes(lq);
+      c.style.display=match?'':'none';
+      if(match)vis++;
     });
-    if (noRes) noRes.classList.toggle('show', vis===0 && currentTab===tab);
+    if(noRes)noRes.classList.toggle('show',vis===0&&currentTab===tab);
   });
 }
-
-function heroSearch() {
-  const q = document.getElementById('heroSearchInput').value.trim();
-  if (!q) return;
+function heroSearch(){
+  const q=document.getElementById('heroSearchInput').value.trim();
+  if(!q)return;
   document.getElementById('direktori').scrollIntoView({behavior:'smooth'});
-  setTimeout(()=>{
-    document.getElementById('tabSearchInput').value = q;
-    onSearch(q);
-  }, 600);
+  setTimeout(()=>{ document.getElementById('tabSearchInput').value=q; onSearch(q); },600);
 }
-
-document.getElementById('heroSearchInput').addEventListener('keydown', e=>{
-  if (e.key==='Enter') heroSearch();
-});
+document.getElementById('heroSearchInput').addEventListener('keydown',e=>{if(e.key==='Enter')heroSearch();});
 
 /* ═══════════════════════════════════
    SCROLL HEADER
 ═══════════════════════════════════ */
-window.addEventListener('scroll', ()=>{
-  document.getElementById('siteHeader').classList.toggle('scrolled', window.scrollY>10);
-}, {passive:true});
+window.addEventListener('scroll',()=>{
+  document.getElementById('siteHeader').classList.toggle('scrolled',window.scrollY>10);
+},{passive:true});
 
 /* ═══════════════════════════════════
    INIT
@@ -872,6 +965,7 @@ renderKambing();
 initSedekah();
 renderDokSapi();
 renderDokKambing();
+renderDokSedekah();
 </script>
 </body>
 </html>
